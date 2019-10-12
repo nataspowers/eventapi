@@ -11,7 +11,7 @@ event_query_schema = base_query_params_schema.extend(
     {
         "name": six.text_type,  # Depends on python version
         "start": DatetimeWithTZ(),
-        "org_name": six.text_type,  # Depends on python version
+        "org_id": six.text_type,  # Depends on python version
         "cost": IntegerLike(),
     }
 )
