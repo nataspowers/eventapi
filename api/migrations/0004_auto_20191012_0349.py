@@ -15,6 +15,18 @@ def save_events(events):
             published = pytz.utc.localize(datetime.strptime(e['published'],'%Y-%m-%dT%H:%M:%SZ'))
         else:
             published = None
+
+        #why have a paid event that doesn't have a price??
+        min_price = 0.0
+        max_price = 0.0
+        if 'ticket_availability' in e and e['ticket_availability'] is not None:
+            if 'minimum_ticket_price' in e['ticket_availability'] and e['ticket_availability']['minimum_ticket_price'] is not None:
+                if 'major_value' in e['ticket_availability']['minimum_ticket_price']:
+                    min_price = e['ticket_availability']['minimum_ticket_price']['major_value']
+            if 'maximum_ticket_price' in e['ticket_availability'] and e['ticket_availability']['maximum_ticket_price'] is not None:
+                if 'major_value' in e['ticket_availability']['maximum_ticket_price']:
+                    max_price = e['ticket_availability']['maximum_ticket_price']['major_value']
+
         event = Event(
             id = e['id'],
             name = e['name']['text'],
@@ -31,8 +43,8 @@ def save_events(events):
             online_event = e['online_event'],
             hide_start_date = e['hide_start_date'],
             hide_end_date = e['hide_end_date'],
-            min_price = e['ticket_availability']['minimum_ticket_price']['major_value'],
-            max_price = e['ticket_availability']['maximum_ticket_price']['major_value']
+            min_price = min_price,
+            max_price = max_price,
         )
         with transaction.atomic():
             event.save()
@@ -40,7 +52,7 @@ def save_events(events):
 
 def fetch_events(apps, schema_editor):
     end_date = (datetime.now()+timedelta(weeks=3)).strftime("%Y-%m-%dT%H:%M:%SZ")
-    headers = {'Authorization':'Bearer 4GQQFB6MUA5Y2RNBIQ55','Accept-Encoding':'application/json'}
+    headers = {'Authorization':'Bearer TOKENGOESHERE','Accept-Encoding':'application/json'}
     params = {
         'start_date.keyword':'today',
         'start_date.range_end':end_date,

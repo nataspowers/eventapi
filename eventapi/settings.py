@@ -25,7 +25,7 @@ SECRET_KEY = 'a8t-ttme-c0u1l=nal204+ddgt^9i!x1xq^2k%sq7k#5$92&(a'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1",".execute-api.us-east-1.amazonaws.com"]
 
 
 # Application definition
@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'api',
     'filters',
+    'zappa_django_utils',
+    'django_s3_storage',
 ]
 
 MIDDLEWARE = [
