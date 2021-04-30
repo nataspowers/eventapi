@@ -32,7 +32,7 @@ tqdm==4.19.1
 troposphere==2.5.2
 Unidecode==1.1.1
 uritemplate==3.0.0
-urllib3==1.25.6
+urllib3==1.25.8
 voluptuous==0.11.7
 Werkzeug==0.16.0
 wsgi-request-logger==0.4.6
